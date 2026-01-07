@@ -141,7 +141,8 @@ STRINGS CAN USE THE SAME METHODS AS STRINGS
 - () is a type that has single value called a unit but similar to void. 
 - List is denoted by []
 - Can be typed using something like 
-type [Int] represents a list of ints
+type [Int] represents a list of ints 
+lists cannot be [int, char] can only be of 1 data type
 
 - String is just shorthand for [Char] list
 
@@ -151,3 +152,99 @@ like
 - :t 'a' returns char
 etc etc
 - :: is read as "type of"
+
+
+## Type Declarations
+- Function also has a type
+- Function type different from return type
+- Good practice is just to provide explicit type Declarations
+- Parameters and return type are separated by "->" 
+Example
+```
+half :: Float -> Float
+half x=x/2
+
+addThree :: Int -> Int -> Int -> Int ->
+addThree x y z = x+y+z
+```
+
+## What about abstract datatypes?
+- Functions operating on various types
+- List append works on list of integers, characters, etc
+- So then what is the type of ++?
+
+```
+:t (++)
+(++) :: [a]->[a]->[a]
+```
+
+What is a?
+
+a is not a specific type, it is called a Type Variable.
+
+## Type variables
+- allow functions to operate on various data types safely
+- functions use type variables are called Polymorphic Functions
+- What is the type of cons?
+
+```
+:t (:)
+(:) :: a -> [a] -> [a]
+```
+
+- head is a function from prelude that takes the first element from a list and returns it.
+type of head is [a]->a
+
+- tail is a function that takes a non-empty list and returns every element except the first element
+type of tail is [a]->[a]
+
+
+## Type Classes
+- Sometimes we do not want an arbitrary type. We may need to add some constraints to the type.
+- Type class is an interface that defines some behavior
+- if a type is an instance of a type class then it supports and implements the behavior that type class defines
+- Specifically, a type class specifies a set of functions
+
+- What is type of (==)? 
+Eq a => a->a-> Bool
+
+Left hand side of => is called a class constraint
+
+This means that the == function takes as input two values of the same type and returns a boolean value
+
+
+### Eq type class: used for types that support equality comparison. Its instances implement == and /=
+tldr: if there is Eq? then it uses a == or /=
+
+
+### Type class: Ord
+- used for types where values are in a total order (comparable)
+- covers >, <, >=, <=
+- all types we have covered so far except for functions are instances of the ord type class
+- to be able to use any comparison we need Ord
+
+### Type Class: Show
+- Values whose types can be represented as Strings
+- All types we have covered so far except for functions are instances of the show type class
+- Show function just converts to string
+
+### Type Class: read
+- Opposite of type class Show. Values whose types are instances of Read can be constructed from Strings
+- all the types we have covered so far except for functions are instances of the Read type class
+- Read function is like type casting for String to something else
+read "42" :: Int
+returns 
+42
+and not "42"
+
+
+### Type Class: Num
+- Num is a numeric type class its instances act like numbers
+- Common Types are int, integer, Float, double
+- (+) is of Type Class: Num
+
+### Type Class: Integral
+- Integral is another numeric type class that only includes integral/whole numbers. it includes types int and Integer
+- One useful function is fromIntegral: turns an integer into a number
+
+fromIntegral :: (Integral a, Num b) => a -> b

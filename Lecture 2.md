@@ -164,10 +164,14 @@ maximum [x] = x
 maximum (x:xs) = max x (maximum xs)
 ```
 
-Example Quick Sort
+## Example Quick Sort
+```
 quicksort :: Ord a => [a] -> [a]
 quicksport [] = []
 quicksort (x:xs) = smaller ++ [x] ++ larger
-    where smaller = quicksort [a | ]
+    where smaller = quicksort [a | a <- xs, a<=x]
+          larger = quicksort [a | a <- xs, a>x]
+```
+
  
 

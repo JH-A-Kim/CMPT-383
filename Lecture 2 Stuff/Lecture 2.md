@@ -175,3 +175,90 @@ quicksort (x:xs) = smaller ++ [x] ++ larger
 
  
 
+
+## Example Replicate:
+
+Replicate from prelude, takes an int and a value and returns a list that has the specified number of repetitions of the value. 
+
+What is the type of replicate?
+
+```
+myReplicate :: Int -> a -> [a]
+myReplicate n v
+    | n<=0 = []
+    | otherwise = v : myReplicate (n-1) v 
+```
+
+
+## Example Take:
+take from prelude takes an int n and a list and returns the first n elements of the list
+
+what is the toye of take?
+Int -> [a] -> [a]
+
+```
+myTake :: Int -> [a] -> [a]
+myTake n _
+    | n<= 0 = []
+myTake _ [] = []
+myTake n (x:xs) = x : myTake (n-1) xs
+```
+
+## Example Zip:
+
+Takes two lists and zips them together. It truncates the longer list to match the length of the shorter one
+
+for example zip [1,2,3] [7,8] returns [(1,7), (2,8)]
+
+What is the type of zip?
+
+[a]->[b]->[(a,b)]
+
+
+# Recursion with Auxiliary Functions
+helper functions
+
+## Example: findFirst
+- Takes a value V and a list as input and returns the position of the first occurence of V in the list if V does not exist in the list it returns -1
+
+```
+findFirst :: Eq a => a -> [a] -> Int
+findFirst v xs = findFirstAux 0 v xs 
+    where
+        findFirstAux :: Eq a => Int -> a -> [a] -> Int
+        findFirstAux _ _ [] = -1
+        findFirstAux i v (x:xs)
+            | v == x    = i
+            | otherwise = findFirstAux (i+1) v xs
+
+```
+
+# Mutual Recursion
+- Functions can be defined using mutual recursion where 2 or more functions are defined recursively in terms of each other
+
+Example: Even and Odd functions
+
+```
+myEven :: Int -> Bool
+myEven 0 = True
+myEven n = myOdd (n-1)
+
+myOdd :: Int -> Bool
+myOdd 0 = False
+myOdd n = myEven (n-1)
+```
+
+# Efficiency of Recursion
+- One may complain that a recursive function is less efficient than the iterative version because the recursive need to maintain a large call stack.
+- 
+
+
+## Tail Recursion
+- Tail Recursive if a resursive call is the last thing executed by the function
+
+## Example: SumToTailRec
+- computs the sum of integers from 0 to N 
+
+![Alt](sumtotailrec.png)
+
+

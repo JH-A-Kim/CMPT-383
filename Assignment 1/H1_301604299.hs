@@ -21,3 +21,10 @@ inList [] _ = False
 inList (x:xs) a
     | x == a   = True
     | otherwise = inList xs a
+
+sumTailRec :: Num a => [a] -> a
+sumTailRec xs = sum xs 0
+    where 
+        sum [] acc = acc
+        sum (y:ys) acc = sum ys (acc+y)
+

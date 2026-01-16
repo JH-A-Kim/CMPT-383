@@ -8,4 +8,16 @@ fib n
 
 listReverse :: [a] -> [a]
 listReverse [] = []
-listReverse (x:xs) = listReverse xs : [x]
+listReverse (x:xs) = listReverse xs ++ [x]
+
+listAdd :: [Int] -> [Int] -> [Int]
+listAdd [] ys = ys
+listAdd xs [] = xs
+listAdd (x:xs) (y:ys) = (x+y) : listAdd xs ys
+
+
+inList :: Eq a => [a]-> a -> Bool
+inList [] _ = False
+inList (x:xs) a
+    | x == a   = True
+    | otherwise = inList xs a
